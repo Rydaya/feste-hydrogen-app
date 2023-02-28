@@ -24,11 +24,13 @@ module.exports = {
         m: ['1rem','1rem'], //16px
         l: ['1.5rem','1.5rem'], //24px
         xl: ['2rem','2rem'], //32px
+        '1xl': ['3rem', '3rem'], //48px
         '2xl': ['4rem','4rem'], //64px
         '3xl': ['5rem','5rem'], //80px
       },
       screens: {
         xs: '450px',
+        '1.5xl': '1335px',
       },
     },
   },

@@ -1,6 +1,7 @@
 import type {SerializeFrom} from '@shopify/remix-oxygen';
 import type {Product} from '@shopify/hydrogen/storefront-api-types';
 import {ProductCard} from '~/components/ProductCard';
+import {Link} from '~/components/Link';
 import {useQuery} from 'urql';
 
 export function ProductSwimlane({
@@ -29,8 +30,9 @@ export function ProductSwimlane({
   if (error) return <pre>{error.message}</pre>;
 
   return (
-    <section >
-      <div className="swimlane hiddenScroll md:pb-8 md:scroll-px-8 lg:scroll-px-12 md:px-8 lg:px-12">
+    <section>
+      <h2 className="text-center text-3xl mb-[60px]">PARTY A LA CARTE</h2>
+      <div className="flex flex-nowrap justify-between gap-0.5 mb-12">
         {data.products.map((product: any) => (
           <ProductCard
             product={product}
@@ -39,6 +41,7 @@ export function ProductSwimlane({
           />
         ))}
       </div>
+      <Link to="#" className='flex justify-center font-sansSerif text-m font-medium underline uppercase'>shop all</Link>
     </section>
   );
 }

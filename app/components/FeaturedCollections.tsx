@@ -35,8 +35,8 @@ export function FeaturedCollections({
             return null;
           }
           return (
-            <div className={'p-2.5 pb-[62px]'} style={{backgroundColor: collection.color}}>
-              <div key={collection.id} className="max-w-[312px] mb-7">
+            <div key={collection.id} className={'p-2.5 pb-[62px] grow'} style={{backgroundColor: collection.color}}>
+              <div className="max-w-[100%] mb-7">
                 {collection?.url && (
                   <Image
                     alt={`Image of ${collection.name}`}
@@ -47,8 +47,8 @@ export function FeaturedCollections({
                       url: collection.url,
                     }}
                     height={224}
-                    sizes="(max-width: 20em) 100vw, 33vw"
-                    width={312}
+                    sizes="(max-width: 100%) 100vw, 33vw"
+                    width={'100%'}
                     widths={[400, 500, 600, 700, 800, 900]}
                     loaderOptions={{
                       scale: 2,
@@ -60,7 +60,7 @@ export function FeaturedCollections({
               <div className='flex flex-col items-center text-center'>
                 <h3 className="text-xl mb-2.5">{collection.name}</h3>
                 {collection.description && (
-                  <p className="text-s max-w-[272px] mb-4">{collection.description}</p>
+                  <p className="font-serifText text-s max-w-[272px] mb-4">{collection.description}</p>
                 )}
                 {collection.handle && <Link to="#" className='font-sansSerif text-xs font-medium underline uppercase'> {collection.handle} </Link>}
               </div>
@@ -71,3 +71,7 @@ export function FeaturedCollections({
     </section>
   );
 }
+
+
+
+

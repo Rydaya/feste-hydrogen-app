@@ -1,5 +1,5 @@
 import clsx from 'clsx';
-import {MediaFile} from '@shopify/hydrogen';
+import {MediaFile, Image} from '@shopify/hydrogen';
 import type {
   MediaImage,
   Media,
@@ -8,12 +8,7 @@ import type {
 import {Link} from '~/components/Link';
 import {useQuery} from 'urql';
 
-export function Hero({
-  heading,
-  height,
-  loading,
-  top,
-}: any) {
+export function Hero({heading, height, loading, top}: any) {
   const [result] = useQuery({
     query: `query {
         heroes {
@@ -30,120 +25,43 @@ export function Hero({
   if (fetching) return <>Loading...</>;
   if (error) return <pre>{error.message}</pre>;
 
-  let spreadFirst = {
-    __typename: 'MediaImage',
-    mediaContentType: 'IMAGE',
-    alt: data?.heroes[0]?.description,
-    previewImage: {
-      url: data?.heroes[0]?.url,
-    },
-    id: data?.heroes[0]?.id,
-    image: {
-      url: data?.heroes[0]?.url,
-      width: 2500,
-      height: 2500,
-    },
-  };
-
-  let spreadSecond = {
-    __typename: 'MediaImage',
-    mediaContentType: 'IMAGE',
-    alt: data?.heroes[1]?.description,
-    previewImage: {
-      url: data?.heroes[1]?.url,
-    },
-    id: data?.heroes[1]?.id,
-    image: {
-      url: data?.heroes[1]?.url,
-      width: 2500,
-      height: 2500,
-    },
-  };
-
   return (
-    <Link to={"#"}>
-      <section
-        className={clsx(
-          'relative justify-end flex flex-col w-full',
-          top && '-mt-nav',
-          height === 'full'
-            ? 'h-screen'
-            : 'aspect-[4/5] sm:aspect-square md:aspect-[5/4] lg:aspect-[3/2] xl:aspect-[2/1]',
-        )}
-      >
-        <div className="absolute inset-0 grid flex-grow grid-flow-col pointer-events-none auto-cols-fr -z-10 content-stretch overflow-clip">
-          {data?.heroes && (
-            <div>
-              <SpreadMedia
-                scale={2}
-                sizes='(min-width: 80em) 700px, (min-width: 48em) 450px, 500px'
-                widths={[500, 450, 700]}
-                width={375}
-                data={spreadFirst as any as Media}
-                loading={loading}
-              />
+    <>
+      <section className="flex gap-2.5 justify-between mb-20">
+        {data.heroes.map((collection: any) => {
+          if (!collection?.url) {
+            return null;
+          }
+          return (
+            <div key={collection.id} className="grow relative">
+              {collection?.url && (
+                <Image
+                  alt={`Image of ${collection?.title}`}
+                  data={{
+                    altText: collection.description,
+                    height: 3155,
+                    width: 2500,
+                    url: collection?.url,
+                  }}
+                  height={'100%'}
+                  sizes="(max-width: 100%) 100vw, 33vw"
+                  width={'100%'}
+                  widths={[400, 500, 600, 700, 800, 900]}
+                  loaderOptions={{
+                    scale: 2,
+                    crop: 'center',
+                  }}
+                  className='object-contain'
+                />
+              )}
+              <div className='text-center text-textWhite absolute bottom-10 left-[50%] translate-x-[-50%] w-[85%]'>
+                <h2 className="text-1xl 1.5xl:text-2xl mb-5">{collection?.title}</h2>
+                <Link to="#" className='font-sansSerif text-m uppercase underline'>{collection?.description}</Link>
+              </div>
             </div>
-          )}
-          {spreadSecond && (
-            <div className="hidden md:block">
-              <SpreadMedia
-                sizes="(min-width: 80em) 700, (min-width: 48em) 450, 500"
-                widths={[450, 700]}
-                width={375}
-                data={spreadSecond as any as Media}
-              />
-            </div>
-          )}
-        </div>
-        <div className="flex flex-col items-baseline justify-between gap-4 px-6 py-8 sm:px-8 md:px-12 bg-gradient-to-t dark:from-contrast/60 dark:text-primary from-primary/60 text-contrast">
-          {heading?.value && <h2 className="">{data?.heroes[0]?.title}</h2>}
-          <h2 className="">{data?.heroes[1]?.title}</h2>
-        </div>
+          );
+        })}
       </section>
-    </Link>
-  );
-}
-
-interface SpreadMediaProps {
-  data: Media | MediaImage | MediaVideo;
-  loading?: HTMLImageElement['loading'];
-  scale?: 2 | 3;
-  sizes: string;
-  width: number;
-  widths: number[];
-}
-
-function SpreadMedia({
-  data,
-  loading,
-  scale,
-  sizes,
-  width,
-  widths,
-}: SpreadMediaProps) {
-  return (
-    <MediaFile
-      data={data}
-      className="block object-cover w-full h-full"
-      mediaOptions={{
-        video: {
-          controls: false,
-          muted: true,
-          loop: true,
-          playsInline: true,
-          autoPlay: true,
-          width: (scale ?? 1) * width,
-          previewImageOptions: {scale, src: data.previewImage?.url ?? ''},
-        },
-        image: {
-          loading,
-          loaderOptions: {scale, crop: 'center'},
-          widths,
-          sizes,
-          width,
-          alt: data.alt || '',
-        },
-      }}
-    />
+    </>
   );
 }
