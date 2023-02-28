@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-text-base: #000000;
+    --color-text-white: #ffffff;
+    --color-fill: #F4EDE5;
+    --color-green: #00966e;
+    --color-blue: #85abbd;
+    --color-yellow: #e3ff21;
+    --color-purple: #bf91c4;
+    --color-bg-product: #ffffff;
+  }
+}
+
+@layer base {
+  .bg-green {
+    background-color: #00966e;
+  }
+}

@@ -1,0 +1,40 @@
+@font-face {
+  font-family: 'GTSuperDisplay';
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+  src: url('./fonts/GT-Super-Display-Light.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'GTSuperDisplay';
+  font-display: swap;
+  font-weight: 400;
+  font-style: italic;
+  src: url('./fonts/GT-Super-Display-Light-Italic.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'GTSuperText';
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+  src: url('./fonts/GT-Super-Text-Book.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Platform';
+  font-display: swap;
+  font-weight: 400;
+  font-style: normal;
+  src: url('./fonts/Platform-Regular-Web.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Platform';
+  font-display: swap;
+  font-weight: 500;
+  font-style: normal;
+  src: url('./fonts/Platform-Medium-Web.woff2') format('woff2');
+}
+
